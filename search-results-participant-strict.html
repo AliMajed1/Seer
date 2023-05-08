@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-87F5F81PC8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-87F5F81PC8');
+</script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Search Results</title>
+      <style>
+         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: lightblue;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+         }
+         .header h1 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+         }
+         .header button {
+            padding: 10px 20px;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+         }
+         .header a {
+            text-decoration: none;
+            color: white;
+            margin-right: 20px;
+         }
+         .user-info {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+         }
+
+         .user-info a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+         }
+
+         .user-info img {
+            height: 30px;
+            margin-right: 5px;
+         }
+
+         .user-info .username {
+            font-weight: bold;
+         }
+         .results-container {
+            padding: 20px;
+         }
+         .result-item {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+         }
+         .result-item .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+         }
+         .result-item .url {
+            font-size: 16px;
+            color: gray;
+            margin-bottom: 10px;
+         }
+         .result-item .snippet {
+            font-size: 14px;
+            color: black;
+         }
+      </style>
+   </head>
+   <body>
+      <header class="header">
+         <div>
+            <h1>Search Results</h1>
+         </div>
+       
+            <button id = "search-button" >Search</button>
+      
+
+         </div>
+      </header>
+      <div class="results-container">
+         <div id="resultsContainer"></div>
+      </div>
+              <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script>
+
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHrpushe73DN11W-FBYX2-l0vnqJ0oCNw",
+    authDomain: "tgesearchengine.firebaseapp.com",
+    projectId: "tgesearchengine",
+    storageBucket: "tgesearchengine.appspot.com",
+    messagingSenderId: "576271302811",
+    appId: "1:576271302811:web:89f94234fd8291b689463e",
+    measurementId: "G-87F5F81PC8"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    
+    // make auth and firestore references
+ 
+  const db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true });
+  
+
+
+
+  </script>
+  <script>
+
+   //Logout
+   var savedResultsCollection = []
+       
+   const uID = localStorage.getItem("uID");
+   const searchButton = document.getElementById("search-button");
+
+   // Update the onclick attribute of the search button
+   searchButton.onclick = function() {
+     window.location.href = "participants.html?uID=" + uID;
+   }
+
+      
+
+      const term  = localStorage.getItem("SearchedString");
+      results1 = db.collection("HC-".concat(uID)).doc(term);
+   
+      results1.get().then(querySnapshot => {
+          console.log(querySnapshot);
+          savedResultsCollection.push(querySnapshot.data());
+       
+      }).then(() => {
+          console.log("Document successfully written!");
+          savedResultsCollection = savedResultsCollection[0].savedResultsCollection;
+          console.log(savedResultsCollection);
+          renderResults(savedResultsCollection);
+   })
+   .catch((error) => {
+       console.error("Error writing document: ", error);
+   });
+      
+
+
+
+      // Function to render each result item
+      const renderResult = (result, index) => {
+        return `
+          <div class="result-item" id="result-${index}">
+            <a class="title" href="${result.link}">${result.htmlTitle}</a>
+            <div class="url">${result.displayLink}</div>
+            
+          </div>
+        `;
+      };
+
+
+
+
+
+      // Get the results container
+      const resultsContainer = document.getElementById("resultsContainer");
+
+
+      function renderResults(savedResults) {
+
+
+        savedResults.forEach((result, index) => {
+          resultsContainer.innerHTML += renderResult(result, index);
+        });
+
+      }
+
+
+ 
+
+
+
+
+
+
+   </script>
+   
+   </body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-87F5F81PC8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-87F5F81PC8');
+</script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Search Results</title>
+      <style>
+         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: lightblue;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+         }
+         .header h1 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+         }
+         .header button {
+            padding: 10px 20px;
+            background-color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+         }
+         .header a {
+            text-decoration: none;
+            color: white;
+            margin-right: 20px;
+         }
+         .user-info {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+         }
+
+         .user-info a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+         }
+
+         .user-info img {
+            height: 30px;
+            margin-right: 5px;
+         }
+
+         .user-info .username {
+            font-weight: bold;
+         }
+         .results-container {
+            padding: 20px;
+         }
+         .result-item {
+            position: relative;
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+         }
+         .result-item .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+         }
+         .result-item .url {
+            font-size: 16px;
+            color: gray;
+            margin-bottom: 10px;
+         }
+         .result-item .snippet {
+            font-size: 14px;
+            color: black;
+         }
+         .remove-button {
+            position: relative;
+
+            top: -40px;
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            float: right;
+         }
+         .circle-button {
+           position: absolute;
+       
+           left: 50%;
+         
+           width: 30px;
+           height: 30px;
+           border-radius: 50%;
+           background-color: yellow;
+           border:
+           color: white;
+           font-size: 20px;
+           cursor: pointer;
+         }
+
+      </style>
+   </head>
+  <body>
+      <header class="header">
+         <div>
+            <h1>Search Results</h1>
+         </div>
+       
+            <button onclick="window.location.href='index.html'">Search</button>
+      
+         <div class="user-info"  >
+            <a href="Settings2.html" class="Logged-In" style="display: none;">
+               <img src="img/user-icon.png" alt="User Icon">
+               <span id="username" class="username"></span>
+            </a></div>
+            <a class="Logged-Out" style="display: none;" href="sign-in.html"><button>Sign in</button></a>
+            <button class="Logged-In" style="display: none;" onClick="logout()">Log out</button>
+         </div>
+      </header>
+      <div class="results-container">
+         <div id="resultsContainer"></div>
+        <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script>
+
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHrpushe73DN11W-FBYX2-l0vnqJ0oCNw",
+    authDomain: "tgesearchengine.firebaseapp.com",
+    projectId: "tgesearchengine",
+    storageBucket: "tgesearchengine.appspot.com",
+    messagingSenderId: "576271302811",
+    appId: "1:576271302811:web:89f94234fd8291b689463e",
+    measurementId: "G-87F5F81PC8"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    
+    // make auth and firestore references
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  db.settings({ timestampsInSnapshots: true });
+
+
+
+
+  </script>
+
+
+
+
+<script>
+async function logout(){
+          
+
+          
+          
+          
+          
+}
+const setupUI = (user) => {
+  const loggedInButtons = document.querySelectorAll('.Logged-In');
+  const loggedOutButtons = document.querySelectorAll('.Logged-Out');
+
+  if (user) {
+    document.getElementById("username").textContent = user.email;
+    loggedInButtons.forEach(button => {
+      button.style.display = 'inline-block';
+    });
+    loggedOutButtons.forEach(button => {
+      button.style.display = 'none';
+    });
+  } else {
+    loggedInButtons.forEach(button => {
+      button.style.display = 'none';
+    });
+    loggedOutButtons.forEach(button => {
+      button.style.display = 'inline-block';
+    });
+  }
+};
+
+auth.onAuthStateChanged(user =>{
+   if(user){
+
+
+   setupUI(user);
+   
+   var results = JSON.parse(localStorage.getItem("results")).items;   
+   var savedResultsCollection = []
+   var serachedTerm = localStorage.getItem("SearchedString");
+ 
+
+
+
+   const usersRef = db.collection("HC-".concat(user.uid)).doc(serachedTerm)
+
+   usersRef.get()
+  .then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      results1 = db.collection("HC-".concat(user.uid)).doc(serachedTerm);
+   
+      results1.get().then(querySnapshot => {
+          console.log(querySnapshot);
+          savedResultsCollection.push(querySnapshot.data());
+       
+      }).then(() => {
+          console.log("Document successfully written!");
+          savedResultsCollection = savedResultsCollection[0].savedResultsCollection;
+          console.log(savedResultsCollection);
+          renderResults(savedResultsCollection);
+   })
+   .catch((error) => {
+       console.error("Error writing document: ", error);
+   });
+
+      
+     
+    } 
+    else {
+
+
+   var titles = []
+   var urls = []
+   var dLinks = []
+   results.forEach(result =>{ titles.push(result.htmlTitle)});
+   results.forEach(result =>{ urls.push(result.link)});
+   results.forEach(result =>{ dLinks.push(result.displayLink)});
+   console.log(titles);
+
+
+   for (let i = 0; i < titles.length; i++) {
+
+      savedResultsCollection.push({ htmlTitle: titles[i] , link: urls[i], displayLink: dLinks[i]  })
+
+   }
+
+   console.log(savedResultsCollection);
+   db.collection("HC-".concat(user.uid)).doc(serachedTerm).set({savedResultsCollection})
+    .then(() => {
+    console.log("Document successfully written!");
+    renderResults(savedResultsCollection);
+
+   })
+   .catch((error) => {
+       console.error("Error writing document: ", error);
+   });
+      
+    }
+   });
+
+
+
+// Get the results container
+const resultsContainer = document.getElementById("resultsContainer");
+
+// Function to render each result item
+const renderResult = (result, index) => {
+
+
+
+     return `
+       <div class="result-item" id="result-${index}">
+         <a class="title" href="${result.link}">${result.htmlTitle}</a>
+         <div class="url">${result.displayLink}</div>
+         <button class="remove-button">-</button>
+         <button class="circle-button">+</button>
+       </div>
+     `;
+
+};
+
+
+
+
+
+
+
+// Function to handle the click event on the circle button
+const handleCircleButtonClick = event => {
+  const index = parseInt(event.target.parentNode.getAttribute("id").split("-")[1]);
+  console.log(`Opening modal for result ${index}`);
+
+  // Create the modal container element
+  const modalContainer = document.createElement("div");
+  modalContainer.classList.add("modal-container");
+
+  // Create the modal content element
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
+
+  // Create the title label element
+  const titleLabel = document.createElement("label");
+  titleLabel.innerText = "Title:";
+  titleLabel.classList.add("modal-label");
+
+  // Create the title input element
+  const titleInput = document.createElement("input");
+  titleInput.type = "text";
+  titleInput.required = true;
+  titleInput.classList.add("modal-input");
+
+  // Create the description label element
+  const descriptionLabel = document.createElement("label");
+  descriptionLabel.innerText = "Url:";
+  descriptionLabel.classList.add("modal-label");
+
+  // Create the description input element
+  const descriptionInput = document.createElement("textarea");
+  descriptionInput.required = true;
+  descriptionInput.classList.add("modal-input");
+
+
+
+  // Create the close button element
+  const closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.innerText = "x";
+  closeButton.classList.add("modal-close");
+
+  // Add an event listener to the close button to remove the modal from the page
+  closeButton.addEventListener("click", event => {
+    event.preventDefault();
+    document.body.removeChild(modalContainer);
+  });
+
+  // Create the submit button element
+  const submitButton = document.createElement("button");
+  submitButton.type = "submit";
+  submitButton.innerText = "Add";
+  submitButton.classList.add("modal-submit");
+
+  // Add an event listener to the submit button to validate the input
+  submitButton.addEventListener("click", event => {
+    event.preventDefault();
+
+    // Check that the title and description inputs are not empty
+    if (titleInput.value.trim() === "" || descriptionInput.value.trim() === "" ) {
+      alert("Please fill out all fields.");
+    } else {
+      console.log(`Submitting modal for result ${index} with title "${titleInput.value}" and Url "${descriptionInput.value}" .`);
+      console.log(savedResultsCollection);
+      const newResults = savedResultsCollection.splice(index + 1, 0, {htmlTitle: `${titleInput.value}`  , link: `${descriptionInput.value}`, displayLink: `${descriptionInput.value}`} );
+  
+
+      db.collection("HC-".concat(user.uid)).doc(serachedTerm).set({savedResultsCollection})
+        .then(() => {
+        console.log("Document successfully written!");
+        //location.reload();
+
+       })
+       .catch((error) => {
+           console.error("Error writing document: ", error);
+       });
+      
+      
+    }
+  });
+
+  // Add the input elements and submit button to the modal content element
+  modalContent.appendChild(closeButton);
+  modalContent.appendChild(titleLabel);
+  modalContent.appendChild(titleInput);
+  modalContent.appendChild(descriptionLabel);
+  modalContent.appendChild(descriptionInput);
+ 
+  modalContent.appendChild(submitButton);
+
+  // Add the modal content element to the modal container element
+  modalContainer.appendChild(modalContent);
+
+  // Add the modal container element to the page
+  document.body.appendChild(modalContainer);
+
+  // Style the modal container and content elements
+  modalContainer.style.position = "fixed";
+  modalContainer.style.top = "0";
+  modalContainer.style.left = "0";
+  modalContainer.style.width = "100%";
+  modalContainer.style.height = "100%";
+  modalContainer.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+  modalContainer.style.zIndex = "9999";
+
+  modalContent.style.position = "absolute";
+  modalContent.style.top = "50%";
+  modalContent.style.left = "50%";
+  modalContent.style.transform = "translate(-50%, -50%)";
+  modalContent.style.width = "500px";
+  modalContent.style.backgroundColor = "#fff";
+  modalContent.style.padding = "20px";
+  modalContent.style.borderRadius = "10px";
+  modalContent.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+  modalContent.style.zIndex = "10000";
+
+
+  
+
+  closeButton.style.padding = "10px 10px";
+  closeButton.style.fontSize = "10px";
+  closeButton.style.fontWeight = "bold";
+  closeButton.style.color = "#fff";
+  closeButton.style.backgroundColor = "#007bff";
+  closeButton.style.cursor = "pointer";
+  closeButton.style.borderRadius = "5px";
+  closeButton.style.position = "absolute";
+  closeButton.style.top = "0";
+  closeButton.style.right = "0";
+
+  titleLabel.style.display = "block";
+  titleLabel.style.marginBottom = "5px";
+  titleLabel.style.fontSize = "18px";
+  titleLabel.style.fontWeight = "bold";
+
+  titleInput.style.display = "block";
+  titleInput.style.width = "100%";
+  titleInput.style.padding = "5px";
+  titleInput.style.fontSize = "16px";
+  titleInput.style.border = "1px solid #ccc";
+  titleInput.style.borderRadius = "5px";
+
+  descriptionLabel.style.display = "block";
+  descriptionLabel.style.marginTop = "10px";
+  descriptionLabel.style.marginBottom = "5px";
+  descriptionLabel.style.fontSize = "18px";
+  descriptionLabel.style.fontWeight = "bold";
+
+  descriptionInput.style.display = "block";
+  descriptionInput.style.width = "100%";
+  descriptionInput.style.height = "100px";
+  descriptionInput.style.padding = "5px";
+  descriptionInput.style.fontSize = "16px";
+  descriptionInput.style.border = "1px solid #ccc";
+  descriptionInput.style.borderRadius = "5px";
+
+  submitButton.style.display = "block";
+  submitButton.style.marginTop = "20px";
+  submitButton.style.padding = "10px 20px";
+  submitButton.style.fontSize = "18px";
+  submitButton.style.fontWeight = "bold";
+  submitButton.style.color = "#fff";
+  submitButton.style.backgroundColor = "#007bff";
+
+  submitButton.style.borderRadius = "5px";
+  submitButton.style.cursor = "pointer";
+
+// Adjust the size of the URL input space to be equivalent to the title input size
+descriptionInput.style.width = "100%";
+
+// Create a label for the form description
+const formDescriptionLabel = document.createElement("h3");
+formDescriptionLabel.innerText = "Please fill out the following form to add a new result:";
+formDescriptionLabel.classList.add("form-description-label");
+
+// Add the form description label to the top of the modal content element
+modalContent.insertBefore(formDescriptionLabel, modalContent.firstChild);
+};
+
+
+
+
+
+// Function to handle the click event on the remove button
+const handleRemoveButtonClick = async event => {
+  const index = parseInt(event.target.getAttribute("data-index"));
+
+  console.log(savedResultsCollection);
+  const removedResult = savedResultsCollection.splice(index, 1);
+  console.log(savedResultsCollection);
+ db.collection("HC-".concat(user.uid)).doc(serachedTerm).set({savedResultsCollection})
+.then(() => {
+console.log("Document successfully written!");
+location.reload();
+
+})
+.catch((error) => {
+   console.error("Error writing document: ", error);
+});
+
+
+};
+
+
+
+
+function renderResults(sResults) {
+
+     sResults.forEach((result, index) => {
+       resultsContainer.innerHTML += renderResult(result, index);
+     });
+
+     // Add event listener to remove buttons
+     const removeButtons = document.querySelectorAll(".remove-button");
+
+     removeButtons.forEach((button, index) => {
+       button.addEventListener("click", handleRemoveButtonClick);
+       button.setAttribute("data-index", index);
+     });
+
+       // Add event listener to circle buttons
+     const circleButtons = document.querySelectorAll(".circle-button");
+     circleButtons.forEach((button, index) => {
+       button.addEventListener("click", handleCircleButtonClick);
+       button.setAttribute("data-index", index);
+       });
+
+  
+
+
+
+    
+
+   }
+
+   }
+
+   else {
+
+      console.log("Not logged in..");
+      window.location.href = "index.html";
+   }
+  
+ })
+
+
+   let logoutButton = document.querySelector("button[onClick='logout()']");
+   logoutButton.addEventListener('click', async (event) => {
+       event.preventDefault();
+
+       
+
+        
+          auth.signOut().then(() => {
+             console.log("Logged Out!");
+             location.href = 'index.html';
+
+
+           }) 
+
+           .catch((error) => {
+               const errorCode = error.code;
+               const errorMessage = error.message;
+               console.log(errorCode, errorMessage);
+
+         });
+
+         
+                    
+      });
+
+
+
+
+
+
+
+
+
+
+    </script>
+   </body>
+</html>
+

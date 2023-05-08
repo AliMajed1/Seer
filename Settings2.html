@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-87F5F81PC8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-87F5F81PC8');
+</script>
+	<meta charset="UTF-8">
+	<title>Account Prefernces</title>
+	<style>
+  /* Style the table */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style the remove button */
+  .remove-btn {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /* Align the table to the center */
+  .table-container {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/Settings2.css">
+</head>
+<body>
+	<section class="py-5 my-5">
+		<div class="container">
+		<div id="header-container">
+	      <img src="img/icon.ico" id="logo">
+	      <h1 id="header-title">Settings </h1>
+	      <button id= "back-bt" onclick="window.location.href='index.html'">Back</button>
+	      
+	      </div>
+
+			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
+				<div class="profile-tab-nav border-right">
+					<div class="p-4">
+						<div class="img-circle text-center mb-3">
+							<img src="img/user3.jpg" alt="Image" class="shadow">
+						</div>
+						<h4 class="text-center">Guest</h4>
+					</div>
+					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+							<i class="fa fa-home text-center mr-1"></i> 
+							Account
+						</a>
+							<a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
+							<i class="fa fa-user text-center mr-1"></i> 
+							Generate Link
+						</a>
+						<a class="nav-link" id="Include-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+							<i class="fa fa-key text-center mr-1"></i> 
+							Inclusion
+						</a>
+
+						<a class="nav-link" id="Exclude-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
+							<i class="fa fa-tv text-center mr-1"></i> 
+							Exclusion
+						</a>
+						<a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
+							<i class="fa fa-bell text-center mr-1"></i> 
+							Custom Filtering
+						</a>
+							<a class="nav-link" id="specific-tab" data-toggle="pill" href="#specific" role="tab" aria-controls="specific" aria-selected="false">
+							<i class="fa fa-bell text-center mr-1"></i> 
+							Strict Custom Search
+						</a>
+					</div>
+				</div>
+				<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+					<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+						<h3 class="mb-4">Account Settings</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>First Name</label>
+								  	<input type="text" class="form-control" value="Kiran">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Last Name</label>
+								  	<input type="text" class="form-control" value="Acharya">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Email</label>
+								  	<input type="text" class="form-control" value="kiranacharya287@gmail.com">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Phone number</label>
+								  	<input type="text" class="form-control" value="+91 9876543215">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Company</label>
+								  	<input type="text" class="form-control" value="Kiran Workspace">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Designation</label>
+								  	<input type="text" class="form-control" value="UI Developer">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+								  	<label>Bio</label>
+									<textarea class="form-control" rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore vero enim error similique quia numquam ullam corporis officia odio repellendus aperiam consequatur laudantium porro voluptatibus, itaque laboriosam veritatis voluptatum distinctio!</textarea>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary">Update</button>
+							<button class="btn btn-light">Cancel</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="Include-tab">
+						<h3 class="mb-4">Enter a word</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="form-check">
+										<input class="form-check-input" type="input" value="" id="inInput">
+										<label class="form-check-label" for="app-check">
+										App check
+										</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary" onClick="addInclude()">Include </button>
+
+						</div>
+						<div class="table-container">
+							  <table id= "InTable">
+							    <thead>
+							      <tr>
+							        <th>Included Term</th>
+
+							        <th></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+
+							      <!-- Add more rows here -->
+							    </tbody>
+							  </table>
+							</div>
+					</div>
+					<div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+						<h3 class="mb-4">Generate Link</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Link for Participants: </label>
+								  	<label type="text" >
+								  		<b>https://tgesearchengine.firebaseapp.com/participants.html?uID=tb3vGgbjceOEYGeHJHkG88Nrt5l1</b>
+								  		</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="form-check">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div>
+	
+						</div>
+					</div>
+					<div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="Exclude-tab">
+						<h3 class="mb-4">Enter a word</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<div class="form-check">
+										<input class="form-check-input" type="input" value="" id="exInput">
+										<label class="form-check-label" for="app-check">
+										App check
+										</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div>
+							<button class="btn btn-primary" onClick="addExclude()">Exclude</button>
+					
+						</div>
+						<div class="table-container">
+							  <table id= "ExTable">
+							    <thead>
+							      <tr>
+							        <th>Excluded Term</th>
+
+							        <th></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+
+							      <!-- Add more rows here -->
+							    </tbody>
+							  </table>
+							</div>
+					</div>
+					<div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+						<h3 class="mb-4">Enter a Specific Search</h3>
+						<div class="form-group">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="notification1">
+								<label class="form-check-label" for="notification1">
+									Case Sensitive
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="searchBox">
+
+                  <input class="searchInput" id="search-input" type="text" name="" placeholder="Search">
+                  <button class="searchButton" onClick="getInputValue()">
+                      <i class="material-icons">
+                          search
+                      </i>
+                  </button>
+        </div>
+						</div>
+						<br><br>
+						<div>
+		
+							<div class="table-container">
+							  <table id= "myTable">
+							    <thead>
+							      <tr>
+							        <th>Title</th>
+							        <th>Link</th>
+							        <th></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+
+							      <!-- Add more rows here -->
+							    </tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+						<div class="tab-pane fade" id="specific" role="tabpanel" aria-labelledby="specific-tab">
+						<h3 class="mb-4">Enter a Specific Search</h3>
+						<div class="form-group">
+							<div class="form-check">
+	
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="searchBox">
+
+                  <input class="searchInput-specific" id="search-input-specific" type="text" name="" placeholder="Search">
+                  <button class="searchButton" onClick="getInputValueSpecific()">
+                      <i class="material-icons">
+                          search
+                      </i>
+                  </button>
+        </div>
+						</div>
+						<br><br>
+						<div>
+		
+							<div class="table-container">
+							  <table id= "specificTable">
+							    <thead>
+							      <tr>
+							        <th>Title</th>
+							        <th>Link</th>
+							        <th></th>
+							      </tr>
+							    </thead>
+							    <tbody>
+
+							      <!-- Add more rows here -->
+							    </tbody>
+							  </table>
+							</div>
+
+						</div>
+						
+							<button class="btn btn-primary" id="enableButton" onClick="enableStrict()">Enable Strict Search</button>
+							<button class="btn btn-primary" id="disableButton" onClick="disableStrict()">Disable Strict Search</button>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script>
+
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHrpushe73DN11W-FBYX2-l0vnqJ0oCNw",
+    authDomain: "tgesearchengine.firebaseapp.com",
+    projectId: "tgesearchengine",
+    storageBucket: "tgesearchengine.appspot.com",
+    messagingSenderId: "576271302811",
+    appId: "1:576271302811:web:89f94234fd8291b689463e",
+    measurementId: "G-87F5F81PC8"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    
+    // make auth and firestore references
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true });
+
+  auth.onAuthStateChanged(user =>{
+  	if(user){
+      console.log(user.email)
+      const savedResultsCollection = db.collection(user.uid);
+      const savedExCollection = db.collection("EX-".concat(user.uid));
+      const savedInCollection = db.collection("IN-".concat(user.uid));
+      const savedHCCollection = db.collection("HC-".concat(user.uid));
+      
+      var savedResults = [];
+      var savedIDs = [];
+
+      localStorage.setItem("uID", user.uid);
+
+
+	savedResultsCollection.get().then(querySnapshot => {
+ 		querySnapshot.forEach(doc => {
+
+    	savedResults.push(doc.data());
+    	savedIDs.push(doc.id);
+
+  });
+
+});
+
+
+
+ const strictsRef = db.collection("Strict-".concat(user.uid)).doc("True");
+const disButton = document.getElementById("disableButton")
+const enButton = document.getElementById("enableButton")
+
+strictsRef.get().then((docSnapshot) => {
+  if (docSnapshot.exists) {
+    disButton.style.display = 'inline-block';
+    enButton.style.display = 'none';
+
+  } else {
+    enButton.style.display = 'inline-block';
+    disButton.style.display = 'none';
+
+  }
+}).catch((error) => {
+  console.error("Error writing document: ", error);
+});
+
+
+
+console.log(savedResults);
+// Get the table element
+const table = document.getElementById("myTable");
+const exTable = document.getElementById("ExTable");
+const inTable = document.getElementById("InTable");
+const specTable = document.getElementById("specificTable");
+
+let num = 0;
+savedResultsCollection.get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+    		
+        const data = doc.data();
+
+        // Create a new row element
+        const row = table.insertRow();
+
+        // Add cells to the row and set their values
+        const titleCell = row.insertCell(0);
+        titleCell.innerText = data.title;
+
+        const urlCell = row.insertCell(1);
+        urlCell.innerHTML = `<a href="${data.link}" target="_blank">${data.link}</a>`;
+
+        const deleteCell = row.insertCell(2);
+        deleteCell.innerHTML = `<button id="${num}" class="delete-btn">X</button>`;
+
+        num ++;
+    });
+
+    // Add event listener to delete buttons to remove the row on click
+    const deleteBtns = document.getElementsByClassName("delete-btn");
+    Array.from(deleteBtns).forEach(btn => {
+        btn.addEventListener("click", e => {
+        	console.log(savedIDs[e.target.id]);
+            const row = e.target.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            db.collection(user.uid).doc(savedIDs[e.target.id]).delete();
+
+
+
+        });
+    });
+});
+
+ 
+		savedExCollection.get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+    		
+        const data = doc.data().Term;
+        console.log(data);
+
+        // Create a new row element
+        const row = exTable.insertRow();
+
+        // Add cells to the row and set their values
+        const titleCell = row.insertCell(0);
+        titleCell.innerText = data;
+
+    
+
+        const deleteCell = row.insertCell(1);
+        deleteCell.innerHTML = `<button id="Ex-bt" class="Ex-delete-btn">X</button>`;
+
+    });
+
+        // Add event listener to delete buttons to remove the row on click
+    const exdeleteBtn = document.getElementsByClassName("Ex-delete-btn");
+    Array.from(exdeleteBtn).forEach(btn => {
+        btn.addEventListener("click", e => {
+        	
+            const row = e.target.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            db.collection("EX-".concat(user.uid)).doc("Exclude").delete();
+
+
+
+        });
+    });
+
+  });
+
+    savedInCollection.get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+    		
+        const data = doc.data().Term;
+        console.log(data);
+
+        // Create a new row element
+        const row = inTable.insertRow();
+
+        // Add cells to the row and set their values
+        const titleCell = row.insertCell(0);
+        titleCell.innerText = data;
+
+    
+
+        const deleteCell = row.insertCell(1);
+        deleteCell.innerHTML = `<button id="In-bt" class="In-delete-btn">X</button>`;
+
+    });
+
+    const indeleteBtn = document.getElementsByClassName("In-delete-btn");
+    Array.from(indeleteBtn).forEach(btn => {
+        btn.addEventListener("click", e => {
+        	
+            const row = e.target.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            db.collection("IN-".concat(user.uid)).doc("Include").delete();
+
+
+
+        });
+    });
+});
+
+
+
+
+savedHCCollection.get().then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+
+        const data = doc.data();
+        const id = doc.id;
+
+        // Create a new row element
+        const row = specTable.insertRow();
+
+        // Add cells to the row and set their values
+        const titleCell = row.insertCell(0);
+        titleCell.innerText = id;
+
+        const urlCell = row.insertCell(1);
+        urlCell.innerHTML = `<a href="SR-Specific.html" onClick="storageSpecific('${id}')" target="_blank">See Customiesd Page</a>`;
+
+        const deleteCell = row.insertCell(2);
+        deleteCell.innerHTML = `<button id="${id}" class="Hc-delete-btn">X</button>`;
+
+        num ++;
+    });
+
+    // Add event listener to delete buttons to remove the row on click
+    const deleteBtns = document.getElementsByClassName("Hc-delete-btn");
+    Array.from(deleteBtns).forEach(btn => {
+        btn.addEventListener("click", e => {
+        	
+            const row = e.target.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            db.collection("HC-".concat(user.uid)).doc(btn.id).delete();
+
+
+
+        });
+    });
+});
+
+
+
+	
+
+  }
+
+  	else{
+  		 window.location.href = "NoLog.html";
+  		}
+    })
+
+
+
+function addExclude(){
+	 var searchInput = document.getElementById("exInput").value;
+	 var uID = localStorage.getItem("uID");
+	 console.log(searchInput);
+	 db.collection("EX-".concat(uID)).doc("Exclude").set({DB: "EX" , Term: searchInput , UID: uID})
+	 .then(() => {
+    console.log("Document successfully written!");
+    location.reload();
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+
+
+}
+
+
+function addInclude(){
+	 var searchInput = document.getElementById("inInput").value;
+	 var uID = localStorage.getItem("uID");
+	 console.log(searchInput);
+	 db.collection("IN-".concat(uID)).doc("Include").set({DB: "IN" , Term: searchInput , UID: uID})
+	 .then(() => {
+    console.log("Document successfully written!");
+    location.reload();
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+
+
+}
+
+
+function storageSpecific(term){
+	console.log(term);
+
+	localStorage.setItem("SearchedString", term);
+}
+
+
+
+
+function enableStrict(){
+
+	const userID = localStorage.getItem("uID");
+	db.collection("Strict-".concat(userID)).doc("True").set({Strict: "True"})
+	.then(() => {
+    console.log("Document successfully written!");
+    location.reload();
+	})
+	.catch((error) => {
+	    console.error("Error writing document: ", error);
+	});
+}
+
+function disableStrict(){
+
+	const userID = localStorage.getItem("uID");
+	db.collection("Strict-".concat(userID)).doc("True").delete()
+	.then(() => {
+    console.log("Document successfully written!");
+    location.reload();
+	})
+	.catch((error) => {
+	    console.error("Error writing document: ", error);
+	});
+		
+	}
+  </script>
+
+
+
+
+	<script src="js/Perform-Search-custom.js"></script>
+	<script src="js/PS-Specific.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

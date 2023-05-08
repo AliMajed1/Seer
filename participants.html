@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-87F5F81PC8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-87F5F81PC8');
+</script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Seer</title>
+<style>
+  #search-select {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 18px;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    background-color: #f7f7f7; /* added a light gray background color */
+  }
+
+#search-select option {
+  font-size: 16px;
+  color: #333;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+#search-select option:hover {
+  background-color: #ccc;
+}
+  
+  .searchBox2 {
+    text-align: center; /* added to center the select box */
+  }
+</style>
+
+      <link rel="icon"  href="favicon.ico">
+      <link rel="stylesheet" type="text/css" href="css/style4.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    
+      <section class="section-1">
+            <img src="img/logo.png" class="logo">
+            <form><br><br>
+                  <div class="searchBox">
+
+                  <input  class= "searchInput" id="search-input" type="text" name="" placeholder="Search">
+                  <button  class= "searchButton" onClick="getInputValue()" id= "normButton">
+                      <i class="material-icons" >
+                          search
+                      </i>
+                  </button>
+
+
+
+     
+
+
+           
+        </div>
+        <div class="searchBox2">
+                          <select   id="search-select"  >
+                  </select>
+                  <button  onClick="strictSearchFunc()" id= "strictButton">
+                   <i class="material-icons" >
+                          search
+                      </i>
+                  </button>
+                        
+                  </div>       
+                 
+            </form>
+
+      </section>
+    
+      <footer>
+            <h4>United Kingdom</h4>
+            <div class="links">
+                  <div class="link-1">
+
+                        <a href="About.html">About</a>
+                        <a href="#">How Search works</a>
+                  </div>
+                  <div class="link-2">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Settings</a>
+                  </div>
+            </div>
+      </footer>
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+  <script>
+
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHrpushe73DN11W-FBYX2-l0vnqJ0oCNw",
+    authDomain: "tgesearchengine.firebaseapp.com",
+    projectId: "tgesearchengine",
+    storageBucket: "tgesearchengine.appspot.com",
+    messagingSenderId: "576271302811",
+    appId: "1:576271302811:web:89f94234fd8291b689463e",
+    measurementId: "G-87F5F81PC8"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    
+    // make auth and firestore references
+
+  const db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true });
+  const queryParams = new URLSearchParams(window.location.search);
+  const uID = queryParams.get('uID');
+  console.log(uID);
+  localStorage.setItem("uID", uID);
+
+
+
+
+
+  </script>
+
+  <script>
+
+const strictsRef = db.collection("Strict-".concat(uID)).doc("True");
+
+
+
+
+const normSearch = [];
+normSearch.push(document.getElementById("search-input"));
+normSearch.push(document.getElementById("normButton"));
+
+const strictSearch = [];
+strictSearch.push(document.getElementById("search-select"));
+strictSearch.push(document.getElementById("strictButton"));
+
+strictsRef.get().then((docSnapshot) => {
+  if (docSnapshot.exists) {
+    strictSearch.forEach((button) => {
+      if (button) {
+        button.style.display = "inline-block";
+      }
+    });
+    normSearch.forEach((button) => {
+      if (button) {
+        button.style.display = "none";
+      }
+    });
+
+
+
+      const savedResultsCollection = db.collection("HC-".concat(uID));
+
+      var savedResults = [];
+      var savedIDs = [];
+
+
+
+
+savedResultsCollection.get().then(querySnapshot => {
+  querySnapshot.forEach(doc => {
+    savedResults.push(doc.data());
+    savedIDs.push(doc.id);
+  });
+
+  console.log(savedResults);
+  console.log(savedIDs);
+  localStorage.setItem("savedResults",savedResults);
+  localStorage.setItem("savedIDs", savedIDs);
+
+  var select = document.getElementById("search-select");
+  select.innerHTML = ""; // clear any existing options
+
+  for (let i = 0; i < savedIDs.length; i++) {
+    const option = document.createElement("option");
+    option.value = savedIDs[i]; // set the option value to the document ID
+    option.textContent = savedIDs[i]; // set the option text to the document name
+    select.appendChild(option);
+  }
+})
+.catch((error) => {
+  console.error("Error writing document: ", error);
+});
+
+
+
+    //make the list appear in the drop down list at 'select'
+  } else {
+    normSearch.forEach((button) => {
+      if (button) {
+        button.style.display = "inline-block";
+      }
+    });
+    strictSearch.forEach((button) => {
+      if (button) {
+        button.style.display = "none";
+      }
+    });
+  }
+});
+
+
+
+function strictSearchFunc(){
+      event.preventDefault();
+      savedIDs2 =localStorage.getItem("savedIDs");
+      const selectedID = document.getElementById("search-select").value;
+
+      localStorage.setItem("SearchedString", selectedID);
+
+
+
+
+      //create the URL with the encoded results
+      let newUrl = `search-results-participant-strict.html`;
+      //navigate to the new URL
+      window.location.href = newUrl;   
+          
+ 
+}
+  
+
+</script>
+ <script src="js/Perform-Search-participant.js"></script>
+
+</body>
+</html>
