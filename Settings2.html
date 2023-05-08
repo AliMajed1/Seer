@@ -187,7 +187,7 @@
 								<div class="form-group">
 								  	<label>Link for Participants: </label>
 								  	<label type="text" >
-								  		<b>https://tgesearchengine.firebaseapp.com/participants.html?uID=tb3vGgbjceOEYGeHJHkG88Nrt5l1</b>
+								  		<b id="userLink">https://tgesearchengine.firebaseapp.com/participants.html?uID=</b>
 								  		</label>
 								</div>
 							</div>
@@ -362,6 +362,8 @@
 
   auth.onAuthStateChanged(user =>{
   	if(user){
+  		const linkElement = document.getElementById("userLink");
+      linkElement.textContent += user.uid;
       console.log(user.email)
       const savedResultsCollection = db.collection(user.uid);
       const savedExCollection = db.collection("EX-".concat(user.uid));
