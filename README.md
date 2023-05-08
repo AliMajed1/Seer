@@ -9,22 +9,14 @@ Account creation for saving preferences and generating tailored search engine pa
 Ability to block specific websites and manipulate participant selection
 Fast processing time (average of 0.74 seconds per search query)
 Surpasses Google Programmable Search Engine in terms of result customization
-Getting Started
-To get started with Seer, visit the Seer website and create an account to explore its powerful features.
 
-Contributing
-We welcome contributions to the Seer project. If you'd like to contribute, please follow these steps:
+## Getting Started
+You can visit our website https://tgesearchengine.web.app/.
 
-Fork the repository.
-Create a new branch for your changes.
-Make your changes and commit them with a meaningful commit message.
-Push your changes to your fork.
-Create a pull request, detailing the changes you've made and the reasoning behind them.
-Reporting Issues & Suggestions
+## Reporting Issues & Suggestions
 If you encounter any issues or have suggestions for improvements, please use the GitHub issue tracker to report them. We appreciate your feedback and will work diligently to address any concerns.
 
-License
-Seer is released under the MIT License.
 
-Acknowledgements
+
+## Acknowledgements
 This project was developed as a graduation project under the supervision of Dr. Sarah Clinch. We would like to express our gratitude to Dr. Clinch, our mentors, peers, and contributors for their support and guidance throughout the development of Seer. Your encouragement and expertise have been invaluable in making Seer a reality.
